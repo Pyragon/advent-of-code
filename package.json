@@ -1,0 +1,25 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "description": "Advent of Code written in Javascript",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pyragon/advent-of-code.git"
+  },
+  "author": "Pyragon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pyragon/advent-of-code/issues"
+  },
+  "homepage": "https://github.com/Pyragon/advent-of-code#readme",
+  "dependencies": {
+    "@blakeembrey/deque": "^1.0.4",
+    "double-ended-queue": "^2.1.0-0",
+    "md5": "^2.2.1",
+    "written-number": "^0.8.1"
+  }
+}

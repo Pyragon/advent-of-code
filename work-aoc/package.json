@@ -1,0 +1,19 @@
+{
+  "name": "advent-of-code",
+  "version": "1.0.0",
+  "description": "Module to run advent-of-code challenges",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pyragon/advent-of-code.git"
+  },
+  "author": "Pyragon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pyragon/advent-of-code/issues"
+  },
+  "homepage": "https://github.com/Pyragon/advent-of-code#readme"
+}
