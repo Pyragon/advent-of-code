@@ -2,8 +2,8 @@ const fs = require('fs');
 const readline = require('readline');
 const path = require('path');
 
-var def_year = 2018;
-var def_day = 9;
+var def_year = 2019;
+var def_day = 2;
 
 if (def_year !== undefined && def_day !== undefined) {
     try {
