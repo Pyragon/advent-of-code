@@ -3,7 +3,7 @@ const readline = require('readline');
 const path = require('path');
 
 var def_year = 2019;
-var def_day = 2;
+var def_day = 3;
 
 if (def_year !== undefined && def_day !== undefined) {
     try {

@@ -18,8 +18,10 @@
   "homepage": "https://github.com/Pyragon/advent-of-code#readme",
   "dependencies": {
     "@blakeembrey/deque": "^1.0.4",
+    "chalk": "^4.1.0",
     "double-ended-queue": "^2.1.0-0",
     "md5": "^2.2.1",
+    "underscore": "^1.12.0",
     "written-number": "^0.8.1"
   }
 }
