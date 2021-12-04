@@ -1,31 +1,29 @@
 module.exports = {
 
     part1: function(contents, split) {
-        for(let i = 0; i < split.length; i++) {
-            if(i == split.length-1) break;
-            for(let k = i+1; k < split.length; k++) {
-                if(parseInt(split[i]) + parseInt(split[k]) == 2020) {
-                    console.log('Answer to part1: '+(parseInt(split[i])*parseInt(split[k])));
+        split = split.map(Number);
+        for (let i = 0; i < split.length - 1; i++) {
+            for (let j = 1; j < split.length; j++) {
+                if (split[i] + split[j] == 2020) {
+                    console.log('Answer for part 1: ' + (split[i] * split[j]));
                     return;
                 }
             }
         }
-        console.log('Could not find result. Please try again.');
     },
 
     part2: function(contents, split) {
-        for(let i = 0; i < split.length; i++) {
-            if(i == split.length-2) break;
-            for(let k = i+1; k < split.length; k++) {
-                for(let j = k+1; j < split.length; j++) {
-                    if(parseInt(split[i]) + parseInt(split[k]) + parseInt(split[j]) == 2020) {
-                        console.log('Answer to part2: '+(parseInt(split[i])*parseInt(split[k])*parseInt(split[j])));
+        let nums = split.map(Number);
+        for (let i = 0; i < nums.length - 2; i++) {
+            for (let k = 1; k < nums.length - 1; k++) {
+                for (let j = 2; j < nums.length; j++) {
+                    if ((nums[i] + nums[k] + nums[j]) == 2020) {
+                        console.log('Answer to part 2: ' + (nums[i] * nums[k] * nums[j]));
                         return;
                     }
                 }
             }
         }
-        console.log('Could not find result. Please try again.');
     },
 
 };

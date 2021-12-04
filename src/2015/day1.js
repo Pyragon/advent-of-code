@@ -1,24 +1,40 @@
 module.exports = {
 
-    part1: function(contents, line) {
-        var floor = 0;
-        var told = false;
-        for (var i = 0; i < contents.length; i++) {
-            var step = contents.charAt(i);
-            if (step == '(') floor++;
-            else if (step == ')') {
+    part1: function(contents, split) {
+
+        let floor = 0;
+
+        let values = contents.split('');
+        for (let value of values) {
+            if (value == '(')
+                floor++;
+
+            if (value == ')')
                 floor--;
-                if (floor <= -1 && !told) {
-                    told = true;
-                    console.log(i + 1);
-                }
-            }
         }
-        console.log(floor);
+
+        console.log('Answer to part 1: ' + floor);
+
     },
 
-    part2: function(contents, line) {
+    part2: function(contents, split) {
 
-    }
+        let floor = 0;
 
-}
+        let values = contents.split('');
+        for (let i = 0; i < values.length; i++) {
+            let value = values[i];
+            if (value == '(')
+                floor++;
+
+            if (value == ')')
+                floor--;
+
+            if (floor < 0) {
+                console.log('Answer to part 2: ' + (i + 1));
+                break;
+            }
+        }
+    },
+
+};
