@@ -1,73 +1,24 @@
 const fs = require('fs');
-const readline = require('readline');
 const path = require('path');
 
-var def_year = 2019;
-var def_day = 3;
+async function start() {
 
-if (def_year !== undefined && def_day !== undefined) {
+    let year = 2021;
+    let day = 4;
+
+    let p = path.join(__dirname, 'src', year.toString(), `day${day}.js`);
+    let mod = require(p);
+
     try {
-        var p = path.join(__dirname, 'src', def_year.toString(), `day${def_day}.js`);
-        var mod = require(p);
-        fs.readFile(`inputs/${def_year}/${def_day}.txt`, 'utf8', (err, contents) => {
-            if (err) {
-                console.error(`Cannot find input for advent year ${def_year} day ${def_day}`);
-                return;
-            }
-            var spl = contents.split(/\r?\n/);
-            if (spl[spl.length - 1].trim() == '') spl.splice(-1, 1);
-            mod.part1(contents, spl);
-            mod.part2(contents, spl);
-        });
-    } catch (err) {
-        console.error(err);
-        console.error(`Cannot find advent year ${def_year} day ${def_day}`);
-    }
-    return;
-}
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-rl.question('What year would you like to run? ', (year) => {
-
-    if (isNaN(year)) {
-        console.error('Year must be a number! ' + year);
-        rl.close();
+        let input = await fs.readFileSync(`./inputs/${year}/${day}.txt`, 'utf8');
+        let split = input.split(/\r?\n/);
+        if (split[split.length - 1].trim() == '') split.splice(-1, 1);
+        mod.part1(input, split);
+        mod.part2(input, split);
+    } catch (e) {
+        console.error(e);
         return;
     }
+}
 
-    rl.question('What day would you like to run? ', (day) => {
-
-        if (isNaN(day)) {
-            console.error('Day must be a number!');
-            rl.close();
-            return;
-        }
-
-        try {
-            var p = path.join(__dirname, 'src', year, `day${day}.js`);
-            var mod = require(p);
-            fs.readFile(`inputs/${year}/${day}.txt`, 'utf8', (err, contents) => {
-                if (err) {
-                    console.error(`Cannot find input for advent year ${year} day ${day}`);
-                    rl.close();
-                    return;
-                }
-                var spl = contents.split(/\r?\n/);
-                mod.part1(contents, spl);
-                mod.part2(contents, spl);
-            });
-        } catch (err) {
-            console.error(`Cannot find advent year ${year} day ${day}`);
-            rl.close();
-            return;
-        }
-
-        rl.close();
-
-    });
-
-});
+start();
