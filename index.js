@@ -4,7 +4,7 @@ const path = require('path');
 async function start() {
 
     let year = 2021;
-    let day = 4;
+    let day = 5;
 
     let p = path.join(__dirname, 'src', year.toString(), `day${day}.js`);
     let mod = require(p);
