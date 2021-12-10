@@ -1,83 +1,89 @@
-module.exports = {
-
-    part1: function(contents, spl) {
-        this.decode(spl);
-    },
-
-    part2: function(contents, spl) {},
-
-    decode: function(spl) {
-
-        var total = 0;
-        var part2 = 0;
-
-        for (const line of spl) {
-            if (line == '') continue;
-
-            var startHypernet = line.indexOf('[');
-            var endHypernet = line.indexOf(']');
-
-            var startLooking = false;
-
-            var valid = false;
-            var withinHypernet = false;
-            var checkingHypernet = false;
-
-            var abas = [];
-            var babs = [];
-
-            for (var i = 0; i < line.length; i++) {
-                var letter = line.charAt(i);
-                if (letter == '[') {
-                    checkingHypernet = true;
-                    startLooking = false;
-                } else if (letter == ']') {
-                    checkingHypernet = false;
-                    startLooking = false;
-                }
-                if (startLooking && (i + 1 == line.length || letter != line.charAt(i + 1))) startLooking = false;
-                else if (startLooking) {
-                    if (checkingHypernet) withinHypernet = true;
-                    else valid = true;
-                }
-                if (checkingHypernet) {
-                    if (i + 2 < line.length) {
-                        if (letter == line.charAt(i + 2) && (letter != line.charAt(i + 1) && line.charAt(i + 1) != ']' && line.charAt(i + 1) != '[')) {
-                            babs.push([
-                                [letter, line.charAt(i + 1), letter].join('')
-                            ]);
-                        }
-                    }
-                } else {
-                    if (i + 2 < line.length) {
-                        if (letter == line.charAt(i + 2) && (letter != line.charAt(i + 1) && line.charAt(i + 1) != ']' && line.charAt(i + 1) != '[')) {
-                            abas.push([
-                                [letter, line.charAt(i + 1), letter].join('')
-                            ]);
-                        }
-                    }
-                }
-                if (i + 3 >= line.length) continue;
-                if (letter == line.charAt(i + 3) && letter != line.charAt(i + 1)) startLooking = true;
+function part1(contents, split) {
+    let count = 0;
+    lineL: for (let line of split) {
+        let outside = [];
+        let inside = [];
+        let current = '';
+        let inBrackets = false;
+        for (let i = 0; i < line.length; i++) {
+            let char = line[i];
+            if (char == '[') {
+                inBrackets = true;
+                outside.push(current);
+                current = '';
+            } else if (char == ']') {
+                inBrackets = false;
+                inside.push(current);
+                current = '';
+            } else {
+                current += char;
             }
-            if (valid && !withinHypernet)
-                total++;
+        }
+        outside.push(current);
+        let abbaRegex = /([a-z])([a-z])\2\1/g;
+        for (let _inside of inside) {
+            let match = abbaRegex.exec(_inside);
+            if (!match) continue;
+            if (isAbba(match[0])) continue lineL;
+        }
+        for (let _outside of outside) {
+            let match = abbaRegex.exec(_outside);
+            if (!match) continue;
+            if (isAbba(match[0])) {
+                count++;
+                continue lineL;
+            }
+        }
+    }
+    console.log('Answer to part 1: ' + count);
+}
 
-            for (var aba of abas) {
-                aba = aba[0];
-                var revSeq = [aba.charAt(1), aba.charAt(0), aba.charAt(1)].join('');
-                if (babs.findIndex(function(x) {
-                        return x[0] == this;
-                    }, revSeq) != -1) {
-                    console.log(line + ' is valid for part 2');
-                    console.log(revSeq + ' matches ' + aba);
-                    part2++;
+function isAbba(string) {
+    return string[0] == string[3] && string[1] == string[2] && string[0] != string[1];
+}
+
+function isAba(string) {
+    return string[0] == string[2] && string[1] != string[2];
+}
+
+function part2(contents, split) {
+    let count = 0;
+    lineL: for (let line of split) {
+        let outside = [];
+        let inside = [];
+        let current = '';
+        let inBrackets = false;
+        for (let i = 0; i < line.length; i++) {
+            let char = line[i];
+            if (char == '[') {
+                inBrackets = true;
+                outside.push(current);
+                current = '';
+            } else if (char == ']') {
+                inBrackets = false;
+                inside.push(current);
+                current = '';
+            } else {
+                current += char;
+            }
+        }
+        outside.push(current);
+        for (let i = 0; i < outside.length; i++) {
+            let _outside = outside[i];
+            for (let j = 0; j < _outside.length - 2; j++) {
+                let aba = _outside[j] + _outside[j + 1] + _outside[j + 2];
+                if (!isAba(aba)) continue;
+                let bab = aba[1] + aba[0] + aba[1];
+                for (let _inside of inside) {
+                    if (_inside.indexOf(bab) != -1) {
+                        count++;
+                        continue lineL;
+                    }
                 }
             }
         }
-        //'mgfmdcxibcgzhrfmm[mzvyabccrdzlaiij]arnetejwseofkwqvxi[fylixbrjhxdfhiewbnb]wvndnswxdnbcktp[tetomqdkfmcndddruy]biuxgrvctlbbrqmxjp'
-        console.log('Answer for part 1: ' + total);
-        console.log('Answer for part 2: ' + part2);
     }
+    console.log('Answer to part 2: ' + count);
+}
 
-};
+module.exports = { part1, part2 };
