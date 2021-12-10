@@ -1,10 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 
+let args = process.argv.slice(2).map(Number);
+
 async function start() {
 
-    let year = 2021;
-    let day = 5;
+    let year = parseInt(args[0] || 0);
+    let day = parseInt(args[1] || 0);
 
     let p = path.join(__dirname, 'src', year.toString(), `day${day}.js`);
     let mod = require(p);
