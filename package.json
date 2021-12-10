@@ -21,12 +21,16 @@
     "homepage": "https://github.com/Pyragon/advent-of-code#readme",
     "dependencies": {
         "@blakeembrey/deque": "^1.0.5",
+        "a-star": "^0.2.0",
         "axios": "^0.24.0",
         "chalk": "^4.1.2",
+        "cli-progress": "^3.9.1",
         "crypto": "^1.0.1",
         "double-ended-queue": "^2.1.0-0",
+        "easy-astar": "^1.0.5",
         "jimp": "^0.16.1",
         "js-combinatorics": "^1.5.4",
+        "lodash": "^4.17.21",
         "md5": "^2.3.0",
         "underscore": "^1.13.1",
         "written-number": "^0.8.1"
