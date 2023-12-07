@@ -1,37 +1,71 @@
-module.exports = {
+function part1(contents, split) {
+    let grid = [];
+    for (let y = 0; y < 10000; y++) {
+        if (!grid[y]) grid[y] = [];
+        for (let x = 0; x < 10000; x++) {
+            grid[y][x] = 0;
+        }
+    }
+    for (let i = 0; i < split.length; i++) {
+        let line = split[i];
+        let [_, id, left, top, width, height] = line.match(/#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/).map(x => parseInt(x));
+        for (let y = top; y < top + height; y++) {
+            for (let x = left; x < left + width; x++) {
+                grid[y][x]++;
+            }
+        }
+    }
+    let count = 0;
+    for (let y = 0; y < 10000; y++) {
+        for (let x = 0; x < 10000; x++) {
+            if (grid[y][x] >= 2)
+                count++;
+        }
+    }
+    // displayGrid(grid);
+    console.log('Answer to part 1: ' + count);
+}
 
-    part1: function(contents, lines) {
-        let usedCoords = [
-            []
-        ];
-        for (let line of lines) {
-            line = line.split(' ');
-            let coords = line[2].split(',');
-            let x = coords[0];
-            let y = coords[1].replace(':', '');
-            coords = line[3].split('x');
-            let w = coords[0];
-            let h = coords[1];
-            for (let i = 0; i < w; i++) {
-                if (typeof usedCoords[x + i] === 'undefined') usedCoords[x + i] = [];
-                for (let k = 0; k < h; k++) {
-                    if (typeof usedCoords[x + i][y + k] === 'undefined') usedCoords[x + i][y + k] = 0;
-                    usedCoords[x + i][y + k]++;
+function displayGrid(grid) {
+    for (let y = 0; y < grid.length; y++) {
+        let line = '';
+        for (let x = 0; x < grid[y].length; x++) {
+            line += grid[y][x];
+        }
+        console.log(line);
+    }
+}
+
+function part2(contents, split) {
+    let grid = [];
+    let ids = [];
+    for (let y = 0; y < 10000; y++) {
+        if (!grid[y]) grid[y] = [];
+        for (let x = 0; x < 10000; x++) {
+            grid[y][x] = [];
+        }
+    }
+    for (let i = 0; i < split.length; i++) {
+        let line = split[i];
+        let [_, id, left, top, width, height] = line.match(/#(\d+) @ (\d+),(\d+): (\d+)x(\d+)/).map(x => parseInt(x));
+        if (!ids.includes(id))
+            ids.push(id);
+        for (let y = top; y < top + height; y++) {
+            for (let x = left; x < left + width; x++) {
+                grid[y][x].push(id);
+            }
+        }
+    }
+    idL: for (let id of ids) {
+        for (let y = 0; y < 10000; y++) {
+            for (let x = 0; x < 10000; x++) {
+                if (grid[y][x].length > 1 && grid[y][x].includes(id)) {
+                    continue idL;
                 }
             }
         }
-        let result = 0;
-        for (let x = 0; x < usedCoords.length; x++) {
-            if (typeof usedCoords[x] === 'undefined') continue;
-            for (let y = 0; y < usedCoords[x].length; y++) {
-                if (usedCoords[x][y] >= 2) result++;
-            }
-        }
-        console.log('Part 1: ' + result);
-    },
-
-    part2: function(contents, lines) {
-
+        console.log('Answer to part 2: ' + id);
     }
+}
 
-};
+module.exports = { part1, part2 };

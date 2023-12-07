@@ -28,6 +28,7 @@
         "crypto": "^1.0.1",
         "double-ended-queue": "^2.1.0-0",
         "easy-astar": "^1.0.5",
+        "is-anagram": "^1.0.3",
         "jimp": "^0.16.1",
         "js-combinatorics": "^1.5.4",
         "lodash": "^4.17.21",
