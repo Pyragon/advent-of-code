@@ -14,8 +14,8 @@ function part1(contents, split) {
     let molecules = new Set();
     for (let [from, to] of replacements) {
         for (let i = 0; i < molecule.length; i++) {
-            if (molecule.substr(i, from.length) == from) {
-                let newMolecule = molecule.substr(0, i) + to + molecule.substr(i + from.length);
+            if (molecule.substring(i, from.length) == from) {
+                let newMolecule = molecule.substring(0, i) + to + molecule.substring(i + from.length);
                 molecules.add(newMolecule);
             }
         }

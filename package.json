@@ -33,6 +33,7 @@
         "js-combinatorics": "^1.5.4",
         "lodash": "^4.17.21",
         "md5": "^2.3.0",
+        "progress": "^2.0.3",
         "underscore": "^1.13.1",
         "written-number": "^0.8.1"
     }
