@@ -20,6 +20,10 @@ async function downloadInput(year, day, session) {
     //write data to file
     if (!isNaN(result.data))
         result.data = '' + result.data;
+    let dir = `./inputs/${year}`;
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+    }
     fs.writeFileSync(`./inputs/${year}/${day}.txt`, result.data);
     return;
 

@@ -5,6 +5,10 @@ createTemplate(args[0], args[1]);
 
 function createTemplate(year, day) {
     const template = fs.readFileSync('./src/tools/template.js', 'utf8');
+    let dir = './src/' + year;
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+    }
     let path = `./src/${year}/day${day}.js`;
     //check if file already exists
     if (fs.existsSync(path)) {
